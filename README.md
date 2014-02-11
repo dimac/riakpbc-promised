@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/oleksiyk/riakpbc-promised.png)](https://travis-ci.org/oleksiyk/riakpbc-promised)
+
 # License (MIT)
 
 Copyright (c) 2014
