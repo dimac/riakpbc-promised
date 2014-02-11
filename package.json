@@ -1,0 +1,30 @@
+{
+    "name": "riakpbc-promised",
+    "description": "Promised wrapper over riakpbc",
+    "homepage": "http://github.com/oleksiyk/riakpbc-promised",
+    "author": {
+        "name": "Oleksiy Krivoshey",
+        "email": "oleksiyk@gmail.com"
+    },
+    "version": "0.0.1",
+    "main": "./index.js",
+    "dependencies": {
+        "riakpbc": "git://github.com/oleksiyk/riakpbc#protobuf-21",
+        "bluebird": "~=1.0.*",
+        "generic-pool": "~=2.0.4",
+    },
+    "devDependencies": {
+    },
+    "bugs": {
+        "url": "https://github.com/oleksiyk/riakpbc-promised/issues"
+    },
+    "scripts": {
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/oleksiyk/riakpbc-promised.git"
+    },
+    "readme": "Promised wrapper over riakpbc",
+    "readmeFilename": "README.md",
+    "license": "MIT"
+}
