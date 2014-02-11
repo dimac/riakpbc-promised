@@ -23,9 +23,9 @@ var RiakClient = function(config) {
         max: config.maxPool || 10,
         min: config.minPool || 5,
         // specifies how long a resource can stay idle in pool before being removed
-        idleTimeoutMillis: 5 * 60 * 1000,
-        reapIntervalMillis: 10 * 1000,
-        refreshIdle: false,
+        idleTimeoutMillis: config.idleTimeoutMillis || 5 * 60 * 1000,
+        reapIntervalMillis: config.reapIntervalMillis || 10 * 1000,
+        refreshIdle: config.reapIntervalMillis || false,
         // if true, logs via console.log - can also be a function
         log: false
     });
