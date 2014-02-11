@@ -1,10 +1,10 @@
 "use strict";
 
-/* global describe, it, before */
+/* global describe, it */
 
 describe('Basics', function() {
 
-    var riakClient = require('../index')();
+    var riakClient = require('../index').create();
 
     it('#getServerInfo', function() {
         return riakClient.getServerInfo()

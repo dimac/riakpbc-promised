@@ -32,7 +32,7 @@ var RiakClient = function(config) {
 
 }
 
-module.exports = function(_config) {
+exports.create = function(_config) {
     return new RiakClient(_config);
 };
 

@@ -1,10 +1,11 @@
 "use strict";
 
+/* jshint camelcase: false */
 /* global describe, it, before */
 
 describe('Vclocks', function() {
 
-    var riakClient = require('../index')();
+    var riakClient = require('../index').create();
     var bucket = 'test-riak-' + Date.now();
 
     before(function() {
