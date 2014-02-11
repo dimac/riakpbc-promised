@@ -11,14 +11,19 @@
     "dependencies": {
         "riakpbc": "git://github.com/oleksiyk/riakpbc#protobuf-21",
         "bluebird": "~=1.0.*",
-        "generic-pool": "~=2.0.4",
+        "generic-pool": "~=2.0.4"
     },
     "devDependencies": {
+        "chai": "~=1.8.1",
+        "sinon-chai": "~=2.4.0",
+        "chai-as-promised": "~=4.1.0",
+        "mocha-as-promised": "~=2.0.0"
     },
     "bugs": {
         "url": "https://github.com/oleksiyk/riakpbc-promised/issues"
     },
     "scripts": {
+        "test": "mocha"
     },
     "repository": {
         "type": "git",
