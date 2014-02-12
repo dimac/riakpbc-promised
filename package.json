@@ -9,7 +9,7 @@
     "version": "0.0.1",
     "main": "./index.js",
     "dependencies": {
-        "riakpbc": "git://github.com/oleksiyk/riakpbc#riak2",
+        "riakpbc": "git://github.com/oleksiyk/riakpbc#protobuf-21",
         "bluebird": "~=1.0.*",
         "generic-pool": "~=2.0.4"
     },
