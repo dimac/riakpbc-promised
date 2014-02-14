@@ -1,5 +1,7 @@
 "use strict";
 
+/* jshint camelcase: false */
+
 var riakpbc     = require('riakpbc');
 var Promise     = require('bluebird');
 var genericPool = require('generic-pool');
@@ -53,7 +55,16 @@ exports.create = function(_config) {
     'getClientId',
     'setClientId',
     'getServerInfo',
-    'ping'
+    'ping',
+    'setBucketType',
+    'getBucketType',
+    'updateDtype',
+    'fetchDtype',
+    'ykGetIndex',
+    'ykPutIndex',
+    'ykDeleteIndex',
+    'ykPutSchema',
+    'ykGetSchema'
 ].forEach(function (m) {
 
         RiakClient.prototype[m] = function () {
@@ -72,6 +83,15 @@ exports.create = function(_config) {
                         db[m].apply(db, args.concat([function(err, data) {
                             if(err){
                                 return reject(err)
+                            }
+                            if(m === 'search' && data.num_found){
+                                data.docs = data.docs.map(function(doc) {
+                                    var d = {}
+                                    doc.fields.forEach(function(field) {
+                                        d[field.key] = field.value
+                                    })
+                                    return d
+                                })
                             }
                             resolve(data)
                         }]))
