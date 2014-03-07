@@ -10,8 +10,6 @@ var RiakClient = function(config) {
 
     config = config || {}
 
-    this.db = riakpbc.createClient(config)
-
     this.pool = genericPool.Pool({
         create: function(callback) {
             var client = riakpbc.createClient(config)
