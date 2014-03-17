@@ -111,11 +111,18 @@ RiakClient.prototype.getIndexAll = function(params) {
                     reject(err)
                 })
                 stream.on('data', function(data) {
-                    if(data && data.keys){
+                    if(data){
                         if(!result){
                             result = data
                         } else {
-                            result.keys = result.keys.concat(data.keys)
+                            if(data.keys){
+                                result.keys = result.keys.concat(data.keys)
+                            } else if(data.results){
+                                result.results = result.results.concat(data.results)
+                            }
+                            if(data.continuation){
+                                result.continuation = data.continuation
+                            }
                         }
                     }
                 })
