@@ -10,7 +10,7 @@
     "main": "./index.js",
     "dependencies": {
         "riakpbc": "git://github.com/oleksiyk/riakpbc#riak2",
-        "bluebird": "~=1.0.*",
+        "bluebird": "~=1.2.x",
         "generic-pool": "~=2.0.4"
     },
     "devDependencies": {
