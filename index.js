@@ -133,3 +133,28 @@ RiakClient.prototype.getIndexAll = function(params) {
         })
 }
 
+RiakClient.prototype.mapredAll = function(params) {
+    var self = this;
+    return self.mapred(params)
+        .then(function(stream) {
+            return new Promise(function(resolve, reject) {
+                var result = null;
+                stream.on('error', function(err) {
+                    reject(err)
+                })
+                stream.on('data', function(data) {
+                    if(data){
+                        if(!result){
+                            result = [data]
+                        } else {
+                            result.push(data)
+                        }
+                    }
+                })
+                stream.on('end', function() {
+                    resolve(result)
+                })
+            })
+        })
+}
+
