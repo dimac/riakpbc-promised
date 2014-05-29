@@ -8,17 +8,17 @@ var genericPool = require('generic-pool');
 
 var RiakClient = function(config) {
 
-    config = config || {}
+    config = config || {};
 
     this.pool = genericPool.Pool({
         create: function(callback) {
-            var client = riakpbc.createClient(config)
+            var client = riakpbc.createClient(config);
             client.connect(function(err) {
-                callback(err, client)
-            })
+                callback(err, client);
+            });
         },
         destroy: function(riak) {
-            riak.disconnect()
+            riak.disconnect();
         },
         max: config.maxPool || 10,
         min: config.minPool || 5,
@@ -30,7 +30,7 @@ var RiakClient = function(config) {
         log: false
     });
 
-}
+};
 
 exports.create = function(_config) {
     return new RiakClient(_config);
@@ -72,34 +72,34 @@ exports.create = function(_config) {
             return new Promise(function(resolve, reject) {
                 self.pool.acquire(function(err, db) {
                     if(err){
-                        return reject(err)
+                        return reject(err);
                     }
 
                     if(m === 'getIndex' || m === 'mapred'){
-                        resolve(db[m].apply(db, args))
+                        resolve(db[m].apply(db, args));
                     } else {
                         db[m].apply(db, args.concat([function(err, data) {
                             if(err){
-                                return reject(err)
+                                return reject(err);
                             }
                             if(m === 'search' && data.num_found){
                                 data.docs = data.docs.map(function(doc) {
-                                    var d = {}
+                                    var d = {};
                                     doc.fields.forEach(function(field) {
-                                        d[field.key] = field.value
-                                    })
-                                    return d
-                                })
+                                        d[field.key] = field.value;
+                                    });
+                                    return d;
+                                });
                             }
-                            resolve(data)
-                        }]))
+                            resolve(data);
+                        }]));
                     }
-                    self.pool.release(db)
-                })
-            })
-        }
+                    self.pool.release(db);
+                });
+            });
+        };
 
-    })
+    });
 
 RiakClient.prototype.getIndexAll = function(params) {
     var self = this;
@@ -108,30 +108,30 @@ RiakClient.prototype.getIndexAll = function(params) {
             return new Promise(function(resolve, reject) {
                 var result = null;
                 stream.on('error', function(err) {
-                    reject(err)
-                })
+                    reject(err);
+                });
                 stream.on('data', function(data) {
                     if(data){
                         if(!result){
-                            result = data
+                            result = data;
                         } else {
                             if(data.keys){
-                                result.keys = result.keys.concat(data.keys)
+                                result.keys = result.keys.concat(data.keys);
                             } else if(data.results){
-                                result.results = result.results.concat(data.results)
+                                result.results = result.results.concat(data.results);
                             }
                             if(data.continuation){
-                                result.continuation = data.continuation
+                                result.continuation = data.continuation;
                             }
                         }
                     }
-                })
+                });
                 stream.on('end', function() {
-                    resolve(result)
-                })
-            })
-        })
-}
+                    resolve(result);
+                });
+            });
+        });
+};
 
 RiakClient.prototype.mapredAll = function(params) {
     var self = this;
@@ -140,21 +140,21 @@ RiakClient.prototype.mapredAll = function(params) {
             return new Promise(function(resolve, reject) {
                 var result = null;
                 stream.on('error', function(err) {
-                    reject(err)
-                })
+                    reject(err);
+                });
                 stream.on('data', function(data) {
                     if(data){
                         if(!result){
-                            result = [data]
+                            result = [data];
                         } else {
-                            result.push(data)
+                            result.push(data);
                         }
                     }
-                })
+                });
                 stream.on('end', function() {
-                    resolve(result)
-                })
-            })
-        })
-}
+                    resolve(result);
+                });
+            });
+        });
+};
 
