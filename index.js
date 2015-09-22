@@ -82,7 +82,7 @@ exports.create = function(_config) {
                             if(err){
                                 return reject(err);
                             }
-                            if(m === 'search' && data.num_found){
+                            if(m === 'search' && data.num_found && data.docs){
                                 data.docs = data.docs.map(function(doc) {
                                     var d = {};
                                     doc.fields.forEach(function(field) {
